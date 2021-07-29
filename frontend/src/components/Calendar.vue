@@ -4,29 +4,25 @@
   <p>events:</p>
   <p>{{ events }}</p>
   <button type="submit" v-on:click="fetchEvents"></button>
+
+  <CalendarDetails />
 </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex';
+import CalendarDetails from './CalendarDetails.vue';
 
 export default {
   name: 'Calendar',
-  data: () =>({
-    events: []
-  }),
+  components: {
+    CalendarDetails
+  },
+  computed: {
+    ...mapGetters('events', ['events']),
+  },
   methods: {
-    fetchEvents() {
-      axios
-        .get('http://localhost:3000/events')
-        .then(response => {
-          this.events = response.data
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
+    ...mapActions('events', ['fetchEvents'])
   }
-
 };
 </script>
