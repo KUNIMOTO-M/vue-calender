@@ -1,23 +1,23 @@
 <template>
 <div>
-  <h1>Calendar</h1>
+  <h1 class="text-h1">Calender</h1>
+  <v-list>
+    <v-list-item v-for="event in events" :key="event.id">
+      {{ event.name }}
+    </v-list-item>  
+  </v-list>
   <p>events:</p>
   <p>{{ events }}</p>
-  <button type="submit" v-on:click="fetchEvents"></button>
+  <v-btn type="submit" v-on:click="fetchEvents">Fetchevents</v-btn>
 
-  <CalendarDetails />
 </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import CalendarDetails from './CalendarDetails.vue';
 
 export default {
   name: 'Calendar',
-  components: {
-    CalendarDetails
-  },
   computed: {
     ...mapGetters('events', ['events']),
   },
